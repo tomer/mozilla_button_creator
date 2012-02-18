@@ -4,29 +4,18 @@ require_once("common.inc.php");
 class MozillaVersionData {
 
     public $tags;
-//    private $builds;
     public $versions;
     
     public $data = array();
     
-    function __construct ($buildsFeed, $tagsFeed) {
-        //print ("$buildsFeed, $tagsFeed");
-        
-        //print_r ($this->fetch_json($tagsFeed));
-        
-        //$this->versions = $this->fetch_json($tagsFeed);
-        //$this->builds   = $this->fetch_json($buildsFeed);
-        
-        $this->addFeed($buildsFeed, $tagsFeed);
-        
-        //print_r($this->data);
-        
+    function __construct ($buildsFeed=null, $tagsFeed=null) {
+        $this->addFeed($buildsFeed, $tagsFeed); 
     }
     
     public function addFeed($buildsFeed = null, $tagsFeed = null) {
         if ($buildsFeed != null && $tagsFeed != null) {
             $data = $this->build_array($buildsFeed, $tagsFeed);
-            $this->data = array_merge($this->data, $data);
+            $this->data = array_merge_recursive($this->data, $data);
         }
     }
     
@@ -50,7 +39,6 @@ class MozillaVersionData {
                 if (isset($ftags[$ver])) {
                     $out[$lang][$ftags[$ver]] = $builds[$lang][$ver];
                     foreach ($out[$lang][$ftags[$ver]] as $os => $value) {
-//                        print("$key->$value\n"); print_r($value);
                         $out[$lang][$ftags[$ver]][$os]['version'] = $ver;
                     }
                 }
@@ -58,30 +46,17 @@ class MozillaVersionData {
             }
         }
         
-        return $this->cleanup($out);
+        return $this->arraykey_strtolower($out);
         
     }
     
-    /*private function cleanup($input) {
-        //$output = $input;
-    
-        foreach ($input as $key=>$val) {
-            $key = strtolower($key);
-            if (is_array($val)) $output[$key] = $this->cleanup($val);
-            else $output[$key] = $val;
-        }
-        
-        return $output;
-    }*/
-    
-    function cleanup($in) {
-    //function arraykey_strtolower ($in) {
+    function arraykey_strtolower ($in) {
         $out = array();
         foreach ($in as $key=>$val) {
             $key = strtolower($key);
             $key = str_replace(' ', '', $key);
             
-            if (is_array($val)) $out[$key] = $this->cleanup($val);
+            if (is_array($val)) $out[$key] = $this->arraykey_strtolower($val);
             else $out[$key] = $val;
         }
         return $out;

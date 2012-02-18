@@ -5,7 +5,6 @@ class Template {
     private $replacements = array();
     function __construct($arr = array()) {
         $this->replacements = $arr;
-        //print_r($this->replacements);
     }
 
     function parse($infile, $outfile) {
@@ -31,7 +30,6 @@ class Template {
     function convert_keyword($keyword) {
         printerr ("Found keyword '$keyword'.");
         $keywords = explode('.', $keyword);
-        //$keywords = $this->arraykey_strtolower($keywords);
         
         switch (count($keywords)) {
             case 1: return $this->replacements[$keywords[0]]; break;

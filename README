@@ -1,0 +1,27 @@
+The following script meant to generate static code containing some data about Firefox/Thunderbird versions. We are doing this in order to require less manual editing on remote websites. 
+
+== Requirements ==
+
+In order to get the script running, PHP 5.3 is a most. Also we've made our best to keep it simple as possible, so there is no additional libraries required. 
+
+== Installation ==
+
+Clone the repository to a local directory on your site. It doesn't meant to sit inside a web-accessible directory, and meant to run directly from the CLI. 
+
+The file config.ini contain some important preferences, including from where to fetch the feeds and the location of the templates directory, and the location of the target directory for the generated files.
+
+Please note that you can specify the config file using the --config parameter. 
+
+== Usage ==
+
+Run php generate.php from the CLI, than watch the generated files in the output subdirectory. 
+
+
+== Creating templates ==
+
+By default, the template keywords are the indexes of the replacements array, and the values are the replacment strings. Multidimentional arrays are translated to dots and array keys are replaced to lowercase characters without spaces. Please watch the bundeled examples for some inspiration. 
+
+
+== Contact ==
+
+Tomer Cohen, http://tomercohen.com

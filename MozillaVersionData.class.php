@@ -1,11 +1,7 @@
 <?php
 require_once("common.inc.php");
 
-class MozillaVersionData {
-
-    public $tags;
-    public $versions;
-    
+class MozillaVersionData {  
     public $data = array();
     
     function __construct ($buildsFeed=null, $tagsFeed=null) {
@@ -23,10 +19,7 @@ class MozillaVersionData {
         $tags     = $this->fetch_json($tagsFeed);
         $builds   = $this->fetch_json($buildsFeed);
         
-        $this->tags = $tags;
-        
         $ftags = array_flip($tags);
-                
 
         $out = array();
         

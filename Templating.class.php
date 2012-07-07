@@ -45,7 +45,8 @@ class Template {
     
     
     function replace($subject) {
-        $pattern = "|\n?\{\{([a-zA-Z0-9_\.]*)\}\}\n?|";
+        #$pattern = "|\n?\{\{([a-zA-Z0-9_\.]*)\}\}\n?|";
+        $pattern = "|\n?\{\@([a-zA-Z0-9_\.]*)\@\}\n?|";
         $out = preg_replace_callback($pattern, array($this, 'replace_callback'), $subject);    
         return $out;
     }

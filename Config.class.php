@@ -9,7 +9,7 @@ class Config {
         if (isset($args['config']))     $this->parseIniFile($args['config']);
         else if (file_exists($iniFile)) $this->parseIniFile($iniFile);
         
-        print_r($this->config);
+        //print_r($this->config);
     }
     
     public function parseIniFile($iniFile = null) {
